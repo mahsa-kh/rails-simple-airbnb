@@ -1,0 +1,40 @@
+
+    <div class="banner">
+      <span class="banner-content">
+        <h1>Welcome to Airbnb - MVP!</p>
+          <%= link_to "ADD A NEW PLACE!", new_flat_path, class: "btn-medium btn-white"%>
+      </span>
+    </div>
+
+<%@flats.each do |flat|%>
+
+  <div class="product">
+    <div class="product-upvotes">
+      <!-- i.fa.fa-caret-up -->
+      <i class="fa fa-caret-up"></i>
+      <p>29</p>
+    </div>
+    <img src="https://source.unsplash.com/random/250x250" alt="">
+    <div class="product-description">
+     <%= link_to flat_path(flat.id) do %>
+      <h3><%= flat.name %></h3>
+        <%end%>
+      <p><%= flat.description %>/p>
+    </div>
+    <ul class="list-inline">
+      <!-- (li>a)*3 -->
+
+      <li><%= link_to "View", flat_path(flat.id), class: "btn-small"%>
+      </li>
+      <li><%= link_to flat_path(flat.id), method: :delete do %>
+        <i class="fas fa-trash"></i>
+      <% end %>
+      </li>
+      <li><%= link_to edit_flat_path(flat.id) do %>
+        <i class="fas fa-edit"></i>
+      <% end %>
+    </li>
+    </ul>
+  </div>
+<%end%>
+

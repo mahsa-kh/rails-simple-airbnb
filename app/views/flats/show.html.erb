@@ -1,0 +1,63 @@
+
+  <div class="flat-one">
+    <div class="product-upvotes">
+      <!-- i.fa.fa-caret-up -->
+      <i class="fa fa-caret-up"></i>
+      <p>29</p>
+    </div>
+    <img src="https://source.unsplash.com/random/250x250" alt="">
+    <div class="product-description">
+      <h3><%= @flat.name %></h3>
+      <p><%= @flat.description %></p>
+      <p><%= @flat.price_per_night %>$</p>
+    </div>
+    <ul class="list-inline">
+      <!-- (li>a)*3 -->
+
+      <li><%= link_to "Back", root_path,  class: "btn-small" %>
+      </li>
+      <li><%= link_to flat_path(@flat.id), method: :delete do %>
+        <i class="fas fa-trash"></i>
+      <% end %>
+      </li>
+      <li><%= link_to edit_flat_path(@flat.id) do %>
+        <i class="fas fa-edit"></i>
+      <% end %>
+    </li>
+    </ul>
+  </div>
+
+<hr>
+
+
+<div class="rev">
+<h3>Reviews:</h3>
+
+<% if @flat.reviews.empty? %>
+  <p>There are no reviews yet.</p>
+<% else %>
+  <ul class="list-group">
+    <% @flat.reviews.reverse.each do |review| %>
+      <li class="list-group-item">
+        <%= review.content %>
+         <% for i in (1..review.rating.to_i) do %>
+         <i class="fas fa-star" align="right"></i>
+         <% end %>
+
+         <%= link_to flat_review_path(@flat.id, review.id), method: :delete do %>
+        <i class="fas fa-trash"></i>
+      <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<p>Add a new review:</p>
+
+<%= simple_form_for [ @flat, @review ] do |f| %>
+  <%= f.input :content %>
+  <%= f.input :rating %>
+  <%= f.submit %>
+<% end %>
+
+</div>
